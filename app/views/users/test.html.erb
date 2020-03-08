@@ -1,0 +1,57 @@
+<template>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <!--
+      このdivがハンバーガメニューに該当する
+      クリックしたらchangeBurgerVisibillityが呼ばれて class に is-active が付与されたり消えたりする
+    -->
+    <div role="button"
+      class="navbar-burger burger"
+      aria-label="menu" aria-expanded="false"
+      v-on:click="changeBurgerVisibillity"
+      v-bind:class="{ 'is-active': burgerVisibillity }"
+    >
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </div>
+    <!--
+      ハンバーガメニューをクリックするとこっちの class も is-active が付与されたり消えたりする
+    -->
+    <div class="navbar-menu" v-bind:class="{ 'is-active': burgerVisibillity }">
+      <div class="navbar-start">
+        <%= link_to "レシピ一覧", recipes_path, class: "navbar-item button is-warning is-light" %>
+      </div>
+      <div class="navbar-item">
+        <%= link_to "レシピ投稿", new_recipe_path, class: "navbar-item button is-warning is-light" %>
+      </div>
+    </div>
+    
+      <div class="navbar-end">
+              <div class="field is-grouped">
+                <p class="control">
+                  <%= link_to "レシピグラマー一覧", users_path, class: " button is-warning is-light" %>
+                </p>
+                <p class="control">
+                  <%= link_to "マイページ", user_path(current_user), class: "button is-warning is-light" %>
+                </p>
+                <p class="control">
+                  <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "button is-warning is-light" %>
+                </p>
+              </div>
+      </div>
+    </div>
+  </nav>
+</template>
+
+<script>
+export default {
+  data() {
+    return { burgerVisibillity: false };
+  },
+  methods: {
+    changeBurgerVisibillity() {
+      this.burgerVisibillity = !this.burgerVisibillity;
+    }
+  }
+};
+</script>
